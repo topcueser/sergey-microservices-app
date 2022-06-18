@@ -5,3 +5,5 @@
 <b>Zuul Api Gateway</b>
 ![Zuul Api Gateway](https://github.com/topcueser/sergey-microservices-app/blob/master/image/zuul-api-gateway.png?raw=true)
 ![Zuul Api Gateway](https://github.com/topcueser/sergey-microservices-app/blob/master/image/Zuul_Api_Gateway.png?raw=true)
+<b>Spring Cloud API Gateway</b>
+![Spring Cloud API Gateway](https://github.com/topcueser/sergey-microservices-app/blob/master/image/spring-cloud-api-gateway.png?raw=true)
