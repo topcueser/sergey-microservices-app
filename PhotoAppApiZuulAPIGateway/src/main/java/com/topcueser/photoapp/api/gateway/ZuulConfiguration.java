@@ -15,7 +15,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /**
- * Fix for Zuul configuration with Spring Boot 2.5.x + Zuul - "NoSuchMethodError: ErrorController.getErrorPath()":
+ * Fix for Zuul configuration with Spring Boot 2.5.x + Zuul - NoSuchMethodError: ErrorController.getErrorPath():
  */
 @Configuration
 public class ZuulConfiguration {
