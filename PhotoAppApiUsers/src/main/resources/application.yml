@@ -7,18 +7,18 @@ spring:
   devtools:
     restart:
       enabled: true
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/sergey-microservices
-#    username: root
-#    password: pa55word
-#  jpa:
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: create
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.MySQL8Dialect
-#        format_sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/sergey-microservices
+    username: root
+    password: pa55word
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
 
 eureka:
   client:
