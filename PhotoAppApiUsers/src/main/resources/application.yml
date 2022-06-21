@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:0}
+  port: ${PORT:8085}
 
 spring:
   application:
@@ -26,6 +26,12 @@ eureka:
       defaultZone: http://localhost:8010/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    
+gateway:
+  ip: 172.16.232.68
+
+token:
+  secret: raeSkLMk424xR9xo3DXq
 
 
 # port=0 olursa sistem tarafından otomatik port numarası verilerek uygulama ayağa kaldırılır.
