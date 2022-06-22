@@ -14,4 +14,8 @@ public class PhotoAppApiUsersApplication {
 		SpringApplication.run(PhotoAppApiUsersApplication.class, args);
 	}
 
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
