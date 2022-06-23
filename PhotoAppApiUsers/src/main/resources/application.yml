@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:0}
+  port: ${PORT:8085}
 
 spring:
   application:
@@ -32,8 +32,6 @@ gateway:
 
 token:
   secret: raeSkLMk424xR9xo3DXq
-
-
 # port=0 olursa sistem tarafından otomatik port numarası verilerek uygulama ayağa kaldırılır.
 # fakat birden fazla instance oluşturmak istendiğinde eureka üzerinde tek instance görülür çünkü port numarası elle setlenmiştir.
 # Onun yerine instance id tanımlaması yapılmalıdır.

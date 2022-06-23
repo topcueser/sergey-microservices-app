@@ -73,7 +73,7 @@ public class UserEntity implements Serializable {
         return encryptedPassword;
     }
 
-    public void setEncryptPassword(String encryptedPassword) {
+    public void setEncryptedPassword(String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
     }
 }
