@@ -5,6 +5,8 @@ import com.topcueser.photoapp.api.users.data.UsersRepository;
 import com.topcueser.photoapp.api.users.shared.UserDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,15 +18,19 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
+@Primary
 public class UsersServiceImpl implements UsersService, UserDetailsService {
 
-    private final UsersRepository usersRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    UsersRepository usersRepository;
 
-    public UsersServiceImpl(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.usersRepository = usersRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+//    public UsersServiceImpl(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+//        this.usersRepository = usersRepository;
+//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+//    }
 
     @Override
     public UserDto createUser(UserDto userDto) {

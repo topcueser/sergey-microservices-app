@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.topcueser.photoapp.api.users.shared.UserDto;
 import com.topcueser.photoapp.api.users.ui.model.LoginRequestModel;
 import com.topcueser.photoapp.api.users.ui.service.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,13 +31,13 @@ import java.util.Objects;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-    private final UsersService usersService;
     private final Environment environment;
+    private final UsersService usersService;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UsersService usersService, Environment environment) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, Environment environment, UsersService usersService) {
         this.authenticationManager = authenticationManager;
-        this.usersService = usersService;
         this.environment = environment;
+        this.usersService = usersService;
     }
 
     @Override
@@ -57,7 +59,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException, IOException {
         String username = ((User) authResult.getPrincipal()).getUsername();
-        Algorithm algorithm = Algorithm.HMAC256((Objects.requireNonNull(environment.getProperty("token.secret"))).getBytes());
+        Algorithm algorithm = Algorithm.HMAC256(Objects.requireNonNull(environment.getProperty("token.secret")).getBytes());
 
         UserDto usersDetails = usersService.getUserDetailsByEmail(username);
 
