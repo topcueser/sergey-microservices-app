@@ -1,8 +1,4 @@
-package com.topcueser.photoapp.api.users.ui.model;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+package com.topcueser.photoapp.api.users.models;
 
 public class CreateUserResponseModel {
     private String firstName;

@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
-public class UsersController {
+public class UserController {
 
     private final Environment environment;
     private final UserService userService;
 
-    public UsersController(Environment environment, UserService userService) {
+    public UserController(Environment environment, UserService userService) {
         this.environment = environment;
         this.userService = userService;
     }

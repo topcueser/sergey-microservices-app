@@ -1,4 +1,4 @@
-package com.topcueser.photoapp.api.users.ui.model;
+package com.topcueser.photoapp.api.users.models;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;

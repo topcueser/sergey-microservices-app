@@ -1,5 +1,9 @@
-package com.topcueser.photoapp.api.users.security;
+package com.topcueser.photoapp.api.users.config;
 
+import com.topcueser.photoapp.api.users.jwt.JwtAccessDeniedHandler;
+import com.topcueser.photoapp.api.users.jwt.JwtAuthenticationEntryPoint;
+import com.topcueser.photoapp.api.users.jwt.JwtSecurityConfig;
+import com.topcueser.photoapp.api.users.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -9,10 +13,24 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
+
+    private final TokenProvider tokenProvider;
+    private final CorsFilter corsFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+    public WebSecurityConfig(TokenProvider tokenProvider, CorsFilter corsFilter, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAccessDeniedHandler jwtAccessDeniedHandler) {
+        this.tokenProvider = tokenProvider;
+        this.corsFilter = corsFilter;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+        this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -23,9 +41,18 @@ public class WebSecurityConfig {
     public SecurityFilterChain httpConfigure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-                .cors().and().csrf().disable()
+                .csrf().disable()
 
-                .headers().frameOptions().sameOrigin()
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
 
                 .and()
                 .sessionManagement()
@@ -46,11 +73,8 @@ public class WebSecurityConfig {
                 .and()
                 .logout().permitAll()
 
-//                .and()
-//                .addFilter(new JwtAuthenticationFilter());
-
                 .and()
-                .apply()
+                .apply(new JwtSecurityConfig(tokenProvider));
 
         return httpSecurity.build();
     }

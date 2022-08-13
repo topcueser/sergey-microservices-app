@@ -1,18 +1,19 @@
-package com.topcueser.photoapp.api.users.data;
+package com.topcueser.photoapp.api.users.entities;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class UserEntity implements Serializable {
+public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = -2834207339301472406L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(nullable = false, length = 50)
     private String firstName;
@@ -29,11 +30,19 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private String encryptedPassword;
 
-    public long getId() {
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")}
+    )
+    private Set<Authority> authorities;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -75,5 +84,13 @@ public class UserEntity implements Serializable {
 
     public void setEncryptedPassword(String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 }

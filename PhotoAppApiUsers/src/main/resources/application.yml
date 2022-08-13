@@ -30,8 +30,11 @@ eureka:
 gateway:
   ip: 172.16.232.68
 
-token:
-  secret: raeSkLMk424xR9xo3DXq
+jwt:
+  header: Authorization
+  secret: 9Bx9iEbda6zPregfwb8jkgc9SQZwndLHz7ghybjuY24x4MC9CCAEtg3MndvJujdN
+  token-validity-in-seconds: 86400
+
 # port=0 olursa sistem tarafından otomatik port numarası verilerek uygulama ayağa kaldırılır.
 # fakat birden fazla instance oluşturmak istendiğinde eureka üzerinde tek instance görülür çünkü port numarası elle setlenmiştir.
 # Onun yerine instance id tanımlaması yapılmalıdır.
