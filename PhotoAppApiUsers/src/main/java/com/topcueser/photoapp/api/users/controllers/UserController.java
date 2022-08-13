@@ -1,12 +1,11 @@
-package com.topcueser.photoapp.api.users.ui.controllers;
+package com.topcueser.photoapp.api.users.controllers;
 
 import com.topcueser.photoapp.api.users.shared.UserDto;
-import com.topcueser.photoapp.api.users.ui.model.CreateUserRequestModel;
-import com.topcueser.photoapp.api.users.ui.model.CreateUserResponseModel;
-import com.topcueser.photoapp.api.users.ui.service.UsersService;
+import com.topcueser.photoapp.api.users.models.CreateUserRequestModel;
+import com.topcueser.photoapp.api.users.models.CreateUserResponseModel;
+import com.topcueser.photoapp.api.users.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,11 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UsersController {
 
-    @Autowired
-    Environment environment;
+    private final Environment environment;
+    private final UserService userService;
 
-    @Autowired
-    UsersService usersService;
+    public UsersController(Environment environment, UserService userService) {
+        this.environment = environment;
+        this.userService = userService;
+    }
 
     @GetMapping("/status/check")
     public String status() {
@@ -38,7 +39,7 @@ public class UsersController {
 
         UserDto userDto = modelMapper.map(userRequestModel, UserDto.class);
 
-        UserDto createdUser = usersService.createUser(userDto);
+        UserDto createdUser = userService.createUser(userDto);
 
         CreateUserResponseModel userResponseModel = modelMapper.map(createdUser, CreateUserResponseModel.class);
 
