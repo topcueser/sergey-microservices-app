@@ -3,6 +3,7 @@ package com.topcueser.photoapp.api.users.entities;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -30,13 +31,13 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String encryptedPassword;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_authority",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")}
     )
-    private Set<Authority> authorities;
+    private Set<Authority> authorities = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -92,5 +93,9 @@ public class User implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public void addAuthority(Authority authority) {
+        this.authorities.add(authority);
     }
 }

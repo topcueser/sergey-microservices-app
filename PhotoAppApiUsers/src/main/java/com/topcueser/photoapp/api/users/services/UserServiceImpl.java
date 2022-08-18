@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         Authority authorityUser = authorityRepository.findByName("ROLE_USER");
 
         User userEntity = modelMapper.map(userDto, User.class);
-        userEntity.getAuthorities().add(authorityUser);
+        userEntity.addAuthority(authorityUser);
 
         userRepository.save(userEntity);
 

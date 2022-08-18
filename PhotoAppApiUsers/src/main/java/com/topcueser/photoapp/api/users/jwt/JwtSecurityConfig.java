@@ -16,8 +16,11 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
 
     @Override
     public void configure(HttpSecurity builder) throws Exception {
+
         AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+
         JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(tokenProvider, authenticationManager);
+
         JwtAuthorizationFilter customAuthorizationFilter = new JwtAuthorizationFilter(tokenProvider);
 
         builder
