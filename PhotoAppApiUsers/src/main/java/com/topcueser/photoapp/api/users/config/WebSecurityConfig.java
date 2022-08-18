@@ -57,6 +57,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST ,"/users").permitAll()
+                .antMatchers("/users/status/check").permitAll()
 
                 .anyRequest().authenticated()
 

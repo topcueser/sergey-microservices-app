@@ -52,7 +52,6 @@ public class TokenProvider implements InitializingBean {
 
         return JWT.create()
             .withSubject(usersDetails.getUserId())
-            //.withSubject(user.getUsername())
             .withExpiresAt(validity)
             .withIssuer(request.getRequestURL().toString())
             .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
