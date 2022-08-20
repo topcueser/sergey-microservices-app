@@ -1,0 +1,25 @@
+server:
+  port: 8012
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/topcueser/sergey-microservices-configuration
+          #username: private-repo use github username
+          #password: private-repo use github password
+          clone-on-start: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: busrefresh

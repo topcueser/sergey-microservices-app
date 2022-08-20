@@ -6,6 +6,12 @@ spring:
     allow-circular-references: true
   application:
     name: zuul-api-gateway
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+
 eureka:
   client:
     serviceUrl:
@@ -20,3 +26,19 @@ zuul:
       path: /users/**
       serviceId: USERS-WS
       stripPrefix: true
+
+authorization:
+  token:
+    header:
+      name: Authorization
+      prefix: Bearer
+
+jwt:
+  token:
+    secret: 9Bx9iEbda6zPregfwb8jkgc9SQZwndLHz7ghybjuY24x4MC9CCAEtg3MndvJujdN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans,health,routes,httptrace
